@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inpone">
+    <input type="text" id="inptwo">
+    <input type="text" id="inpt">
+    <button onclick="sender()">Send to console</button>
+</body>
+<script>
+    let rr =[]
+    let inpone = document.getElementById("inpone")
+   let inptwo = document.getElementById("inptwo")
+    let inpt = document.getElementById("inpt")
+    function sender(){
+        
+    let dd ={username:"inpone.value",
+             email:"inptwo.avlue",
+             pass:"inpt.value"
+    
+    }
+    rr.push(dd)
+    localStorage.setItem("data", JSON.stringify(rr))
+    let collect =JSON.parse( localStorage.getItem("data"));
+
+
+    console.log(collect)
+}
+</script>
+</html>

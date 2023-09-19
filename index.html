@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        p{
+            color: rgb(16, 16, 139);
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .container{
+            width: 700px;
+            height: 600px;
+            box-shadow: 8px 6px 8px 2px rgb(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin: 100px auto 100px auto;
+            text-align: center;
+        }
+
+        .btn-holder{
+            width: 100%;
+            height: 100px;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+        }
+        .btn{
+           
+            width: 100px;
+            height: 50px;
+            background-color: green;
+            text-align: center;
+            border-radius: 8px;
+            color: white;
+            border: none;
+        }
+        .btn:hover{
+            background-color: yellow;
+            color: black;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container" id="container"></div>
+    
+    <div class="btn-holder">
+        <button class="btn" onclick="previous()" id="preBtn">Previous</button> 
+        <button class="btn" onclick="next()" id="btnNext">Next</button>
+         <button class="btn" onclick="submit()" id="submitBtn">Submit</button>
+         <button class="btn" onclick="restart()" id="restartBtn">Resart</button>
+    </div>
+
+    
+</body>
+<script>
+    let score =0
+     let num = 0;
+     let restartBtn = document.getElementById("restartBtn")
+     let submitBtn = document.getElementById("submitBtn")
+     let btnNext = document.getElementById("btnNext")
+     let preBtn = document.getElementById("preBtn")
+     let pickedAns = []
+     submitBtn.style.display="none"
+     restartBtn.style.display="none"
+    let arr1 = [
+    {
+        id: 1,
+        question:"Which player is affectionately known as 'The King' to Manchester United fans?",
+        options:["Ryan Giggs","Paul Scholes","Eric Cantona",],
+        
+        correcAnswer:"Eric Cantona"
+    },
+
+    {
+        id: 2,
+        question:"Manchester United broke their record transfer fee in 2016 when they paid £89.5 million for which player?",
+        options:["Paul Pogba","Angel DiMaria", "Alexis Sanchez"],
+        correcAnswer:"Paul Pogba"
+    },
+
+    {
+        "id": 3,
+        question:"What is the nickname of Old Trafford?",
+        options:["The Theatre of Dreams", "The Red Devils","Stretfod Stand"],
+        correcAnswer:"The Theatre of Dreams"
+    }
+,
+    {
+        id: 4,
+        question:"Who is the only player to win the European Golden Boot while playing for Manchester United?",
+        options:["Wayne Rooney","Cristiano Ronaldo","van nistelrooy"],
+        correcAnswer:"Cristiano Ronaldo"
+    }
+,
+    {
+        id: 5,
+        question:"Alex Ferguson famously kicked a boot at which player, injuring his eye?",
+        options:["Carlos Tevez","David Beckham","Rio Ferdinand"],
+       correcAnswer:"David Beckham"
+    }
+];
+    
+    let sn= document.getElementById("container")
+   ;
+
+   function showData(){
+    sn.innerHTML=`</br><h2>QUESTION ${arr1[num].id}</h2></br>
+                <p>${arr1[num].question}</p></br> 
+                <input type="radio" name="best" value="${arr1[num].options[0]}" onchange="myAns(event)"> <label>${arr1[num].options[0]}</label> </br>
+                <input type="radio" name="best" value="${arr1[num].options[1]}" onchange="myAns(event)"> <label>${arr1[num].options[1]}</label> </br>
+                <input type="radio" name="best" value="${arr1[num].options[2]}" onchange="myAns(event)"> <label>${arr1[num].options[2]}</label> </br> `;
+                console.log("index = " + num)
+                
+   }
+   showData();
+   
+    function next(){
+        if (num == (arr1.length-1)){
+            btnNext.style.display="none"
+            submitBtn.style.display="block"
+        }
+        else{
+            num++;
+            showData();
+            preBtn.disabled = false
+            console.log("else index = " +num)
+        } 
+               
+        console.log(num)
+     
+    }
+ 
+
+    function previous(){
+        
+        if (num == 0){
+            
+            preBtn.disabled = true
+       
+    } else{
+    num--;
+    btnNext.style.display="block"
+            submitBtn.style.display="none"
+    showData();
+    }
+    }
+    function myAns(ev){
+        let selected = ev.target.value;
+        pickedAns[num] = selected
+        console.log(pickedAns)
+    }
+
+    function submit(){
+        arr1.forEach( (ev,i)=>{
+            if(ev.correcAnswer == pickedAns[i]){
+                score++
+                
+            }
+           
+        });
+       sn.innerHTML=`</br><h2>DEAR [USERNAME]</h2></br><p>You score <span style="color:red">${score}</span> out of <span style="color:green">${arr1.length}</span></P>`
+        preBtn.style.display="none"
+        submitBtn.style.display="none"
+        restartBtn.style.display="block"
+    }
+
+    function restart(){
+        window.location.reload()
+    }
+</script>
+</html>
